@@ -1,0 +1,15 @@
+country, state, electricity_unit, electricity_value
+USA,California,kwh,150
+USA,Texas,kwh,200
+Canada,Ontario,kwh,180
+Canada,Quebec,kwh,160
+Germany,,kwh,220
+France,,kwh,210
+Australia,New South Wales,kwh,190
+Australia,Victoria,kwh,175
+India,Maharashtra,kwh,250
+India,Karnataka,kwh,230
+Brazil,São Paulo,kwh,140
+Brazil,Rio de Janeiro,kwh,130
+Japan,,kwh,210
+South Korea,,kwh,195

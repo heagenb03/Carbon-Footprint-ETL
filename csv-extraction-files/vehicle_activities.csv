@@ -1,0 +1,16 @@
+distance_unit, distance_value, vehicle_model, vehicle_year, vehicle_make
+km,150,Civic,2018,Honda
+mi,200,Model S,2020,Tesla
+km,300,Corolla,2015,Toyota
+mi,100,F-150,2019,Ford
+km,50,3 Series,2017,BMW
+km,250,Accord,2021,Honda
+mi,350,Silverado,2018,Chevrolet
+km,500,Camry,2016,Toyota
+mi,150,Mustang,2022,Ford
+km,75,Q5,2020,Audi
+mi,450,Ram 1500,2019,Dodge
+km,200,X5,2018,BMW
+mi,50,Wrangler,2021,Jeep
+km,120,CR-V,2017,Honda
+mi,400,Explorer,2020,Ford

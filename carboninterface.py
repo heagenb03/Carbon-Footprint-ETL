@@ -34,9 +34,14 @@ class CarbonInterface:
         return response.json()
 
     def parse_data(self, response):
+        print(response)
         data = response['data']
         attributes = data['attributes']
-        return attributes['carbon_mt']
+        time = attributes['estimated_at']
+        estimate = attributes['carbon_mt']
+        return {
+            time: estimate
+        }
     
     def fetch_vehicle_id(self, vehicle_name):
         url = f'{self.url}/vehicle_makes'

@@ -1,4 +1,4 @@
-weight_unit, weight_value, distance_unit, distance_value, transport_method
+weight_unit,weight_value,distance_unit,distance_value,transport_method
 kg,500,km,1200,ship
 kg,3000,km,800,train
 lb,1500,mi,250,truck

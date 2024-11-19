@@ -2,7 +2,6 @@ import os
 import json
 import requests
 import constants
-
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -37,11 +36,8 @@ class CarbonInterface:
         print(response)
         data = response['data']
         attributes = data['attributes']
-        time = attributes['estimated_at']
         estimate = attributes['carbon_mt']
-        return {
-            time: estimate
-        }
+        return estimate
     
     def fetch_vehicle_id(self, vehicle_name):
         url = f'{self.url}/vehicle_makes'

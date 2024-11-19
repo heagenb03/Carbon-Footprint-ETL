@@ -31,7 +31,7 @@ class CarbonInterface:
         json_data = json.dumps(data)
         url = f'{self.url}/estimates'
         response = requests.post(url, data=json_data, headers=self._headers)
-        return response.json()
+        return response.json() if response.status_code == 200 else None
 
     def parse_data(self, response):
         print(response)
@@ -119,5 +119,3 @@ class CarbonInterface:
         response_json = self.fetch_data(data)
         estimate = self.parse_data(response_json)
         return estimate
-    
-API = CarbonInterface()

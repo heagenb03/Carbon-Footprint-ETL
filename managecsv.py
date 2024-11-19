@@ -12,4 +12,3 @@ class CSVManager:
         vehicle_data = pd.read_csv(constants.VEHICLE_DATA_PATH)
         
         return electricity_data, flight_data, shipping_data, vehicle_data
-    

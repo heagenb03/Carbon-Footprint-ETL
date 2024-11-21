@@ -3,8 +3,8 @@ import json
 import requests
 import constants
 from dotenv import load_dotenv
-load_dotenv()
 
+load_dotenv()
 class CarbonInterface:
     def __init__(self):
         self.api_key = os.getenv('CARBON_INTERFACE_API_KEY')
@@ -17,7 +17,8 @@ class CarbonInterface:
             'Authorization': f'Bearer {self.api_key}'
         }
         response = requests.get(url, headers=headers)
-        return response.status_code if response.status_code == 200 else None
+        if response.status_code > 201:
+            raise Exception('Invalid API Key')
     
     @property
     def _headers(self):
@@ -30,10 +31,12 @@ class CarbonInterface:
         json_data = json.dumps(data)
         url = f'{self.url}/estimates'
         response = requests.post(url, data=json_data, headers=self._headers)
-        return response.json() if response.status_code == 200 else None
+        if response.status_code > 201:
+            raise Exception(f'Error fetching data')
+        
+        return response.json()
 
     def parse_data(self, response):
-        print(response)
         data = response['data']
         attributes = data['attributes']
         estimate = attributes['carbon_mt']

@@ -1,7 +1,7 @@
-country,state,electricity_unit,electricity_value
-US,CA,mwh,150
-US,TX,mwh,200
-US,FL,mwh,180
-US,KS,mwh,160
-CA,QC,mwh,220
-CA,ON,mwh,210
+country,state,electricity_value,electricity_unit
+US,CA,150,mwh
+US,TX,200,mwh
+US,FL,180,mwh
+US,KS,160,mwh
+CA,QC,220,mwh
+CA,ON,210,mwh

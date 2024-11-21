@@ -12,8 +12,4 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-#mycursor.execute('CREATE TABLE electricity (id INT AUTO_INCREMENT PRIMARY KEY, country VARCHAR(255), state VARCHAR(255), electricity_value FLOAT, electricity_unit VARCHAR(255), carbon_emission FLOAT, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP)')
-mycursor.execute('SHOW TABLES')
-
-for x in mycursor:
-    print(x)
+mycursor.execute('ALTER TABLE vehicle MODIFY COLUMN distance_value FLOAT')

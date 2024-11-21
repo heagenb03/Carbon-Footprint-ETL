@@ -12,10 +12,17 @@ class CarbonCalculator:
         for _, row in data.iterrows():
             country = row['country']
             state = row['state']
-            unit = row['electricity_unit']
             value = row['electricity_value']
+            unit = row['electricity_unit']
             response = self.carbon_interface.estimate_eletricity(value, unit, country, state)
-            emissions.append(response)
+            data_row = {
+                'country': country,
+                'state': state,
+                'value': value,
+                'unit': unit,
+                'emission': response
+            }
+            emissions.append(data_row) 
             
         return emissions
     
@@ -36,10 +43,10 @@ class CarbonCalculator:
         data = self.csv_manager.shipping_data
         emissions = []
         for _, row in data.iterrows():
-            weight_unit = row['weight_unit']
             weight = row['weight_value']
-            distance_unit = row['distance_unit']
+            weight_unit = row['weight_unit']
             distance = row['distance_value']
+            distance_unit = row['distance_unit']
             transport_method = row['transport_method']
             response = self.carbon_interface.estimate_shipping(weight, weight_unit, distance, distance_unit, transport_method)
             emissions.append(response)
@@ -50,13 +57,10 @@ class CarbonCalculator:
         data = self.csv_manager.vehicle_data
         emissions = []
         for _, row in data.iterrows():
-            distance_unit = row['distance_unit']
             distance = row['distance_value']
+            distance_unit = row['distance_unit']
             vehicle_make = row['vehicle_make']
             response = self.carbon_interface.estimate_vehicle(distance, distance_unit, vehicle_make)
             emissions.append(response)
             
         return emissions
-    
-API = CarbonCalculator()
-print(API.calculate_flight_emissions())

@@ -35,5 +35,14 @@ class MySQLManager:
 
         self.mydb.commit()
     
+    def insert_shipping_emissions(self):
+        emissions = self.calculate_carbon.calculate_shipping_emissions()
+        sql = 'INSERT INTO shipping (weight_value, weight_unit, distance_value, distance_unit, transport_method, carbon_emission) VALUES (%s, %s, %s, %s, %s, %s)'
+        for emission in emissions:
+            val = (emission['weight'], emission['weight_unit'], emission['distance'], emission['distance_unit'], emission['transport_method'], emission['emission'])
+            self.mycursor.execute(sql, val)
+            
+        self.mydb.commit()
+    
 manager = MySQLManager()
-manager.insert_flight_emissions()
+manager.insert_shipping_emissions()

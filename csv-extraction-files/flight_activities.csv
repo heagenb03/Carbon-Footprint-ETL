@@ -1,5 +1,6 @@
 passengers,departure_airport,destination_airport,round_trip
 150,JFK,LHR,true
+150,JFK,LHR,false
 200,LAX,NRT,false
 180,CDG,DXB,true
 220,SYD,SIN,false

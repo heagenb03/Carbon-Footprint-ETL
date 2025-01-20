@@ -33,9 +33,19 @@ class CarbonCalculator:
             passengers = row['passengers']
             departure = row['departure_airport']
             destination = row['destination_airport']
-            round_trip = True if row['round_trip'] == 'true' else False
+            if row['round_trip'] == True:
+                round_trip = True
+            else:
+                round_trip = False
             response = self.carbon_interface.estimate_flight(passengers, departure, destination, round_trip)
-            emissions.append(response)
+            data_row = {
+                'passengers': passengers,
+                'departure': departure,
+                'destination': destination,
+                'round_trip': round_trip,
+                'emission': response,
+            }
+            emissions.append(data_row)
             
         return emissions
     
@@ -49,7 +59,15 @@ class CarbonCalculator:
             distance_unit = row['distance_unit']
             transport_method = row['transport_method']
             response = self.carbon_interface.estimate_shipping(weight, weight_unit, distance, distance_unit, transport_method)
-            emissions.append(response)
+            data_row = {
+                'weight': weight,
+                'weight_unit': weight_unit,
+                'distance': distance,
+                'distance_unit': distance_unit,
+                'transport_method': transport_method,
+                'emission': response
+            }
+            emissions.append(data_row)
 
         return emissions
     
@@ -61,6 +79,12 @@ class CarbonCalculator:
             distance_unit = row['distance_unit']
             vehicle_make = row['vehicle_make']
             response = self.carbon_interface.estimate_vehicle(distance, distance_unit, vehicle_make)
-            emissions.append(response)
+            data_row = {
+                'distance': distance,
+                'distance_unit': distance_unit,
+                'vehicle_make': vehicle_make,
+                'emission': response
+            }
+            emissions.append(data_row)
             
         return emissions

@@ -32,7 +32,7 @@ class CarbonInterface:
         url = f'{self.url}/estimates'
         response = requests.post(url, data=json_data, headers=self._headers)
         if response.status_code > 201:
-            raise Exception(f'Error fetching data')
+            raise Exception(f'Error fetching data \n Code: {response.status_code} \n Message: {response.text} \n Data: {data}')
         
         return response.json()
 
@@ -70,23 +70,24 @@ class CarbonInterface:
     def estimate_flight(self, passengers, departure, destination, round_trip=False):
         legs = [
             {
-                'departure': departure,
-                'destination': destination
+                'departure_airport': departure,
+                'destination_airport': destination
             }
         ]
         
         if round_trip:
-            legs.append({
-                'departure': destination,
-                'destination': departure
-            })
+            legs.append(
+                {
+                    'departure_airport': destination,
+                    'destination_airport': departure
+                }
+            )
         
         data = {
             'type': 'flight',
             'passengers': passengers,
             'legs': legs
         }
-        
         response_json = self.fetch_data(data)
         estimate = self.parse_data(response_json)
         return estimate

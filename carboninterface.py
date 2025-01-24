@@ -42,15 +42,37 @@ class CarbonInterface:
         estimate = attributes['carbon_mt']
         return estimate
     
-    def fetch_vehicle_id(self, vehicle_name):
+    def fetch_vehicle_make_id(self, vehicle_make):
         url = f'{self.url}/vehicle_makes'
         response = requests.get(url, headers=self._headers)
-        data = response.json()
-        for vehicle in data:
-            if vehicle['data']['attributes']['name'] == vehicle_name:
-                return vehicle['data']['id']
+        if response.status_code > 201:
+            raise Exception(f'Error fetching data \n Code: {response.status_code} \n Message: {response.text}')
+        
+        make_id = None
+        data = json.loads(response.text)
+        for name in data:
+            if name['data']['attributes']['name'] == vehicle_make:
+                make_id = name['data']['id']
+                return make_id
             
-        return None
+        if make_id == None:
+            raise Exception(f'Vehicle make not found: {vehicle_make}')
+    
+    def fetch_vehicle_model_id(self, vehicle_make_id, vehicle_name, vehicle_year):
+        url = f'{self.url}/vehicle_makes/{vehicle_make_id}/vehicle_models'
+        response = requests.get(url, headers=self._headers)
+        if response.status_code > 201:
+            raise Exception(f'Error fetching data \n Code: {response.status_code} \n Message: {response.text}')
+        
+        model_id = None
+        data = json.loads(response.text)
+        for name in data:
+            if name['data']['attributes']['name'] == vehicle_name and name['data']['attributes']['year'] == vehicle_year:
+                model_id = name['data']['id']
+                return model_id
+        
+        if model_id == None:
+            raise Exception(f'Vehicle model not found: {vehicle_name} {vehicle_year}')
     
     def estimate_eletricity(self, value, unit, country, state=None):
         data = {
@@ -106,14 +128,15 @@ class CarbonInterface:
         estimate = self.parse_data(response_json)
         return estimate
     
-    def estimate_vehicle(self, value_distance, unit_distance, vehicle_make):
-        vehicle_id = self.fetch_vehicle_id(vehicle_make)
+    def estimate_vehicle(self, value_distance, unit_distance, vehicle_make, vehicle_name, vehicle_year):
+        vehicle_make_id = self.fetch_vehicle_make_id(vehicle_make)
+        vehicle_model_id = self.fetch_vehicle_model_id(vehicle_make_id, vehicle_name, vehicle_year)
         
         data = {
             'type': 'vehicle',
             'distance_value': value_distance,
             'distance_unit': unit_distance,
-            'vehicle_id': vehicle_id
+            'vehicle_model_id': vehicle_model_id
         }
         
         response_json = self.fetch_data(data)

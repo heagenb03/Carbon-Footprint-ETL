@@ -1,6 +1,3 @@
-distance_value,distance_unit,vehicle_make
-150,km,Honda
-200,mi,Tesla
-300,km,Toyota
-100,mi,Ford
-50,km,BMW
+distance_value,distance_unit,vehicle_make,vehicle_name,vehicle_year
+150,km,Honda,Accord,2018
+300,km,Toyota,Corolla,2017

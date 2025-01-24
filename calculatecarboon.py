@@ -78,11 +78,15 @@ class CarbonCalculator:
             distance = row['distance_value']
             distance_unit = row['distance_unit']
             vehicle_make = row['vehicle_make']
-            response = self.carbon_interface.estimate_vehicle(distance, distance_unit, vehicle_make)
+            vehicle_name = row['vehicle_name']
+            vehicle_year = row['vehicle_year']
+            response = self.carbon_interface.estimate_vehicle(distance, distance_unit, vehicle_make, vehicle_name, vehicle_year)
             data_row = {
                 'distance': distance,
                 'distance_unit': distance_unit,
                 'vehicle_make': vehicle_make,
+                'vehicle_name': vehicle_name,
+                'vehicle_year': vehicle_year,
                 'emission': response
             }
             emissions.append(data_row)

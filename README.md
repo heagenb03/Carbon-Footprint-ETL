@@ -13,10 +13,6 @@ An datapipeline ETL to transform CSV data to their corresponding carbon emission
 
 * Update CSV files to desired data
 
-## Help
-
-Currently does not update real-time. In works to work with AWS.
-
 ## Authors
 
 Heagen Bell | [LinkedIn](https://www.linkedin.com/in/heagen-bell)

@@ -1,2 +1,4 @@
 .env
 mysqlnotes.txt
+.vscode/*
+__pycache__/

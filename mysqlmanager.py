@@ -1,7 +1,7 @@
 import os
 import mysql.connector
 from dotenv import load_dotenv
-from calculatecarboon import CarbonCalculator
+from calculatecarbon import CarbonCalculator
 
 load_dotenv()
 class MySQLManager:
@@ -52,6 +52,3 @@ class MySQLManager:
             self.mycursor.execute(sql, val)
 
         self.mydb.commit()
-        
-manager = MySQLManager()
-manager.insert_vehicle_emissions()

@@ -6,12 +6,14 @@ An datapipeline ETL to transform CSV data to their corresponding carbon emission
 ### Dependencies
 
 * Python
-* mySQL
+* MySQL
 * Pandas
+* R
 
 ### Executing program
 
 * Update CSV files to desired data
+* Run main.py
 
 ## Authors
 

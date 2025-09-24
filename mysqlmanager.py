@@ -5,7 +5,11 @@ from calculatecarbon import CarbonCalculator
 
 load_dotenv()
 class MySQLManager:
+    """Manage MySQL database connections and operations
+    """
     def __init__(self):
+        """Initialize MySQL database connection
+        """
         self.mydb = mysql.connector.connect(
             host='localhost',
             user=os.getenv('MYSQL_USER'),
@@ -13,10 +17,11 @@ class MySQLManager:
             database=os.getenv('MYSQL_DB')
         )
         self.mycursor = self.mydb.cursor()
-        
         self.calculate_carbon = CarbonCalculator()
 
     def insert_electricity_emissions(self):
+        """Insert electricity emissions data into the database
+        """
         emissions = self.calculate_carbon.calculate_electricity_emissions()
         sql = 'INSERT INTO electricity (country, state, electricity_value, electricity_unit, carbon_emission) VALUES (%s, %s, %s, %s, %s)'
         for emission in emissions:
@@ -26,8 +31,9 @@ class MySQLManager:
         self.mydb.commit()
 
     def insert_flight_emissions(self):
+        """Insert flight emissions data into the database
+        """
         emissions = self.calculate_carbon.calculate_flight_emissions()
-        print(emissions)
         sql = 'INSERT INTO flight (passengers, departure, destination, round_trip, carbon_emission) VALUES (%s, %s, %s, %s, %s)'
         for emission in emissions:
             val = (emission['passengers'], emission['departure'], emission['destination'], emission['round_trip'], emission['emission'])
@@ -36,6 +42,8 @@ class MySQLManager:
         self.mydb.commit()
     
     def insert_shipping_emissions(self):
+        """Insert shipping emissions data into the database
+        """
         emissions = self.calculate_carbon.calculate_shipping_emissions()
         sql = 'INSERT INTO shipping (weight_value, weight_unit, distance_value, distance_unit, transport_method, carbon_emission) VALUES (%s, %s, %s, %s, %s, %s)'
         for emission in emissions:
@@ -45,6 +53,8 @@ class MySQLManager:
         self.mydb.commit()
     
     def insert_vehicle_emissions(self):
+        """Insert vehicle emissions data into the database
+        """
         emissions = self.calculate_carbon.calculate_vehicle_emissions()
         sql = 'INSERT INTO vehicle (distance_value, distance_unit, vehicle_make, vehicle_name, vehicle_year, carbon_emission) VALUES (%s, %s, %s, %s, %s, %s)'
         for emission in emissions:

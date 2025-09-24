@@ -2,7 +2,11 @@ import pandas as pd
 import constants
 
 class CSVManager:
+    """Store and manage CSV data 
+    """
     def __init__(self):
+        """Initialize CSVManager and load activity data
+        """
         self.electricity_data, self.flight_data, self.shipping_data, self.vehicle_data = self._load_activites()
     
     def _load_activites(self):

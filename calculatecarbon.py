@@ -2,19 +2,28 @@ from managecsv import CSVManager
 from carboninterface import CarbonInterface
 
 class CarbonCalculator:
+    """Calculating carbon emissions from from CSV file data and Carbon Interface API
+    """
     def __init__(self):
+        """Initialize the CarbonCalculator
+        """
         self.csv_manager = CSVManager()
         self.carbon_interface = CarbonInterface()
         
     def calculate_electricity_emissions(self):
+        """Calculate electricity emissions
+
+        Returns:
+            list: A list of dictionaries containing electricity emissions data
+        """
         data = self.csv_manager.electricity_data
         emissions = []
-        for _, row in data.iterrows():
+        for i, row in data.iterrows():
             country = row['country']
             state = row['state']
             value = row['electricity_value']
             unit = row['electricity_unit']
-            response = self.carbon_interface.estimate_eletricity(value, unit, country, state)
+            response = self.carbon_interface.estimate_electricity(value, unit, country, state)
             data_row = {
                 'country': country,
                 'state': state,
@@ -27,6 +36,11 @@ class CarbonCalculator:
         return emissions
     
     def calculate_flight_emissions(self):
+        """Calculate flight emissions
+
+        Returns:
+            list: A list of dictionaries containing flight emissions data
+        """
         data = self.csv_manager.flight_data
         emissions = []
         for _, row in data.iterrows():
@@ -50,6 +64,11 @@ class CarbonCalculator:
         return emissions
     
     def calculate_shipping_emissions(self):
+        """Calculate shipping emissions
+
+        Returns:
+            list: A list of dictionaries containing shipping emissions data
+        """
         data = self.csv_manager.shipping_data
         emissions = []
         for _, row in data.iterrows():
@@ -72,6 +91,11 @@ class CarbonCalculator:
         return emissions
     
     def calculate_vehicle_emissions(self):
+        """Calculate vehicle emissions
+
+        Returns:
+            list: A list of dictionaries containing vehicle emissions data
+        """
         data = self.csv_manager.vehicle_data
         emissions = []
         for _, row in data.iterrows():
